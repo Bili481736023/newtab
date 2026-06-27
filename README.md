@@ -1,0 +1,2 @@
+# newtab
+A simple newtab。

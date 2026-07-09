@@ -1,6 +1,6 @@
 # 🌌 极光起始页 · Aurora Start
 
-[![License: CC BY-ND 4.0](https://img.shields.io/badge/License-CC%20BY--ND%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nd/4.0/)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 > 一个极光风格的浏览器起始页，带有时钟、搜索历史、多搜索引擎切换。  
 > A beautiful aurora‑themed start page with live clock, search history, and multi‑engine switching.
@@ -46,13 +46,22 @@
 商店强制要求绑定手机号，且审核繁琐。本项目仅供个人或小范围分享，通过开发者模式加载简单自由，无需受制于平台规则。
 
 ### 📜 授权协议
-本项目采用 **CC BY-ND 4.0（署名-禁止演绎）** 协议。
+本项目采用 **GNU General Public License v3.0 (GPL v3)** 协议。
 
-- ✅ 你可以免费下载、安装、使用，并分享原始完整代码（需保留作者署名）。
-- ❌ 你**不可以**修改代码后重新发布（包括改颜色、改文案、换搜索引擎等任何改编行为），也不可将本代码用于训练 AI 模型或作为其他软件的内部组件。
-- ❌ 你**不可以**将本代码用于任何商业目的（包括但不限于出售、捆绑销售、作为付费产品的一部分等）。
+- ✅ 你可以自由下载、安装、使用（包括商业用途）。
+- ✅ 你可以自由修改代码。
+- ✅ 你可以自由分发原始或修改后的代码。
+- ⚠️ **修改后的代码必须同样以 GPL v3 开源**。
+- ⚠️ 必须注明原作者（Bili481736023）和修改日期。
+- ⚠️ 必须附带完整的 GPL v3 协议文本。
+- ❌ 你**不可以**将本代码（或修改后的版本）闭源发布。
+- ❌ 你**不可以**将本代码用于训练 AI 模型或作为其他软件的内部组件（此限制为作者附加条款，需保留）。
 
-> 简而言之：**你可以使用和分享完整作品，但不可以改编它，也不可以用它赚钱。**
+> 简而言之：**你可以自由使用、修改和分享，但修改后的作品也必须以 GPL 开源。** 详情请查看 `LICENSE` 文件。
+
+### 📧 联系作者
+- GitHub：[Bili481736023](https://github.com/Bili481736023)
+- 如有问题或建议，欢迎提 Issue 或 Pull Request。
 
 ---
 
@@ -95,13 +104,22 @@
 The store requires phone number verification and has a lengthy review process. This project is designed for personal or small‑scale sharing. Loading via developer mode is simple and free from platform restrictions.
 
 ### 📜 License
-This project is licensed under **CC BY-ND 4.0 (Attribution-NoDerivatives)**.
+This project is licensed under the **GNU General Public License v3.0 (GPL v3)**.
 
-- ✅ You are allowed to download, install, use, and share the **unmodified** original code (with attribution).
-- ❌ You are **NOT** allowed to modify and redistribute the code (including changing colors, text, search engines, or any other adaptation), nor to use it for training AI models or as a component in other software.
-- ❌ You are **NOT** allowed to use this code for any commercial purposes (including but not limited to selling, bundling, or including it as part of a paid product).
+- ✅ You are free to download, install, use (including commercial use).
+- ✅ You are free to modify the code.
+- ✅ You are free to distribute original or modified code.
+- ⚠️ **Modified code must also be open-sourced under GPL v3**.
+- ⚠️ You must attribute the original author (Bili481736023) and date of modification.
+- ⚠️ You must include the full GPL v3 license text.
+- ❌ You are **NOT** allowed to release this code (or modified versions) as closed-source.
+- ❌ You are **NOT** allowed to use this code for training AI models or as an internal component of other software (this restriction is an additional author clause and must be retained).
 
-> In short: **You can use and share the complete work, but you cannot adapt it or make money from it.**
+> In short: **You are free to use, modify, and share, but modified versions must also be open-sourced under GPL.** See the `LICENSE` file for details.
+
+### 📧 Contact
+- GitHub: [Bili481736023](https://github.com/Bili481736023)
+- For issues or suggestions, feel free to open an Issue or Pull Request.
 
 ---
 

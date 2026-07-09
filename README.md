@@ -3,8 +3,8 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 > 一个极光风格的浏览器起始页，带有时钟、搜索历史、多搜索引擎切换。  
-> A beautiful aurora‑themed start page with live clock, search history, and multi‑engine switching.
-> QQ 群： 1103802773
+> A beautiful aurora‑themed start page with live clock, search history, and multi‑engine switching.  
+> QQ 群： 1103802773  
 > QQ Group: 1103802773
 ---
 

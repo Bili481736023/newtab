@@ -1,7 +1,9 @@
 (function() {
     'use strict';
 
-    // ===== DOM 引用 =====
+    // ============================================================
+    // DOM 引用
+    // ============================================================
     const timeEl = document.getElementById('time');
     const dateEl = document.getElementById('date');
     const searchForm = document.getElementById('searchForm');
@@ -12,10 +14,19 @@
     const overlay = document.getElementById('popupOverlay');
     const engineItems = popup.querySelectorAll('.engine-item');
     const historyDropdown = document.getElementById('historyDropdown');
+    const shortcutsGrid = document.getElementById('shortcutsGrid');
+
+    const modal = document.getElementById('shortcutModal');
+    const nameInput = document.getElementById('shortcutNameInput');
+    const urlInput = document.getElementById('shortcutUrlInput');
+    const cancelBtn = document.getElementById('shortcutCancelBtn');
+    const saveBtn = document.getElementById('shortcutSaveBtn');
 
     const WEEKDAYS = ['日', '一', '二', '三', '四', '五', '六'];
 
-    // ===== 时钟 =====
+    // ============================================================
+    // 时钟
+    // ============================================================
     function pad(n) { return String(n).padStart(2, '0'); }
 
     function updateClock() {
@@ -33,7 +44,9 @@
     updateClock();
     setInterval(updateClock, 1000);
 
-    // ===== 搜索引擎配置 =====
+    // ============================================================
+    // 搜索引擎
+    // ============================================================
     const ENGINES = {
         bing: {
             url: 'https://www.bing.com/search',
@@ -52,22 +65,25 @@
             param: 'text',
             placeholder: '在 Yandex 中搜索…',
             label: '✦ &nbsp;Yandex'
+        },
+        google: {
+            url: 'https://www.google.com/search',
+            param: 'q',
+            placeholder: '在 Google 中搜索…',
+            label: '✦ &nbsp;Google'
         }
     };
 
     let currentEngine = 'bing';
 
-    // ===== 切换搜索引擎 =====
     function setEngine(engineKey) {
         if (!ENGINES[engineKey]) return;
         const config = ENGINES[engineKey];
         currentEngine = engineKey;
-
         searchForm.action = config.url;
         searchInput.name = config.param;
         searchInput.placeholder = config.placeholder;
         currentEngineLabel.innerHTML = config.label;
-
         engineItems.forEach(item => {
             const key = item.dataset.engine;
             if (key === engineKey) {
@@ -76,21 +92,15 @@
                 item.classList.remove('active');
             }
         });
-
         closePopup();
-
         searchInput.style.transition = 'box-shadow 0.25s ease';
         searchInput.style.boxShadow = '0 0 0 3px rgba(102, 126, 234, 0.25)';
-        setTimeout(() => {
-            searchInput.style.boxShadow = 'none';
-        }, 400);
-
+        setTimeout(() => { searchInput.style.boxShadow = 'none'; }, 400);
         try {
             localStorage.setItem('preferredEngine', engineKey);
         } catch (_) {}
     }
 
-    // ===== 引擎弹出控制 =====
     function openPopup() {
         popup.classList.add('show');
         overlay.classList.add('show');
@@ -115,28 +125,25 @@
         e.stopPropagation();
         togglePopup();
     });
-    overlay.addEventListener('click', function() { closePopup(); });
+    overlay.addEventListener('click', closePopup);
     engineItems.forEach(item => {
         item.addEventListener('click', function() {
             const key = this.dataset.engine;
             if (key) setEngine(key);
         });
     });
+
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             if (popup.classList.contains('show')) closePopup();
             if (historyDropdown.classList.contains('show')) hideHistory();
-        }
-    });
-    document.addEventListener('click', function(e) {
-        if (popup.classList.contains('show')) {
-            const isTrigger = engineTrigger.contains(e.target);
-            const isPopup = popup.contains(e.target);
-            if (!isTrigger && !isPopup) closePopup();
+            if (modal.classList.contains('show')) closeModal();
         }
     });
 
-    // ===== 历史记录管理 =====
+    // ============================================================
+    // 搜索历史
+    // ============================================================
     const STORAGE_KEY = 'searchHistory';
     const MAX_HISTORY = 30;
 
@@ -179,7 +186,6 @@
         hideHistory();
     }
 
-    // 转义显示（仅用于展示，防止 XSS）
     function escapeHtml(text) {
         const div = document.createElement('div');
         div.textContent = text;
@@ -189,9 +195,7 @@
     function renderHistory() {
         const history = getHistory();
         if (history.length === 0) {
-            historyDropdown.innerHTML = `
-                <div class="history-empty">暂无搜索历史</div>
-            `;
+            historyDropdown.innerHTML = `<div class="history-empty">暂无搜索历史</div>`;
             return;
         }
         let html = '';
@@ -210,20 +214,17 @@
         `;
         historyDropdown.innerHTML = html;
 
-        // 绑定事件：点击历史项
         historyDropdown.querySelectorAll('.history-item').forEach(itemEl => {
             const textSpan = itemEl.querySelector('.history-text');
-            // 点击整个条目（除删除按钮）触发搜索
             itemEl.addEventListener('click', function(e) {
                 if (e.target.classList.contains('history-delete')) return;
-                const query = textSpan.textContent; // 原始文本
+                const query = textSpan.textContent;
                 if (query) {
                     searchInput.value = query;
                     searchForm.submit();
                     hideHistory();
                 }
             });
-            // 删除按钮
             const delBtn = itemEl.querySelector('.history-delete');
             if (delBtn) {
                 delBtn.addEventListener('click', function(e) {
@@ -243,7 +244,6 @@
         }
     }
 
-    // ===== 显示/隐藏历史下拉 =====
     let hideTimeout = null;
 
     function showHistory() {
@@ -271,21 +271,17 @@
         }
     });
 
-    // 表单提交：保存历史 + 正常提交
     searchForm.addEventListener('submit', function(e) {
         const val = searchInput.value.trim();
         if (val === '') {
             e.preventDefault();
             searchInput.style.transition = 'box-shadow 0.2s ease';
             searchInput.style.boxShadow = '0 0 0 3px rgba(255, 100, 100, 0.2)';
-            setTimeout(() => {
-                searchInput.style.boxShadow = 'none';
-            }, 600);
+            setTimeout(() => { searchInput.style.boxShadow = 'none'; }, 600);
             return;
         }
         addHistoryItem(val);
         hideHistory();
-        // 正常提交
     });
 
     document.addEventListener('keydown', function(e) {
@@ -296,7 +292,169 @@
         }
     });
 
-    // ===== 恢复上次使用的搜索引擎 =====
+    // ============================================================
+    // 快捷链接
+    // ============================================================
+    const SHORTCUTS_KEY = 'shortcuts';
+
+    function getShortcuts() {
+        try {
+            const data = localStorage.getItem(SHORTCUTS_KEY);
+            return data ? JSON.parse(data) : [];
+        } catch (_) { return []; }
+    }
+
+    function saveShortcuts(list) {
+        try {
+            localStorage.setItem(SHORTCUTS_KEY, JSON.stringify(list));
+        } catch (_) {}
+    }
+
+    function getFavicon(url) {
+        try {
+            const u = new URL(url);
+            return `https://www.google.com/s2/favicons?domain=${u.hostname}&sz=64`;
+        } catch (_) {
+            return '';
+        }
+    }
+
+    function renderShortcuts() {
+        const list = getShortcuts();
+        let html = '';
+
+        list.forEach((item, index) => {
+            const icon = item.icon || getFavicon(item.url);
+            html += `
+                <a href="${item.url}" target="_blank" class="shortcut-item" data-index="${index}">
+                    <img class="shortcut-icon" src="${icon}" alt="${escapeHtml(item.name)}" loading="lazy" onerror="this.style.display='none'" />
+                    <span class="shortcut-name">${escapeHtml(item.name)}</span>
+                    <span class="shortcut-delete" data-index="${index}">✕</span>
+                </a>
+            `;
+        });
+
+        html += `
+            <div class="shortcuts-add-btn" id="addShortcutBtn">
+                <span class="add-icon">+</span>
+                <span>添加</span>
+            </div>
+        `;
+
+        shortcutsGrid.innerHTML = html;
+
+        shortcutsGrid.querySelectorAll('.shortcut-delete').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const idx = parseInt(this.dataset.index);
+                if (!isNaN(idx)) {
+                    deleteShortcut(idx);
+                }
+            });
+        });
+
+        const addBtn = document.getElementById('addShortcutBtn');
+        if (addBtn) {
+            addBtn.addEventListener('click', openModal);
+        }
+    }
+
+    function deleteShortcut(index) {
+        let list = getShortcuts();
+        if (index >= 0 && index < list.length) {
+            list.splice(index, 1);
+            saveShortcuts(list);
+            renderShortcuts();
+        }
+    }
+
+    function addShortcut(name, url) {
+        name = name.trim();
+        url = url.trim();
+        if (!name || !url) return false;
+        if (!/^https?:\/\//i.test(url)) {
+            url = 'https://' + url;
+        }
+        try {
+            new URL(url);
+        } catch (_) {
+            return false;
+        }
+        let list = getShortcuts();
+        const existing = list.findIndex(item => item.url === url);
+        if (existing !== -1) {
+            list[existing].name = name;
+        } else {
+            list.push({ name, url, icon: getFavicon(url) });
+        }
+        saveShortcuts(list);
+        renderShortcuts();
+        return true;
+    }
+
+    // ============================================================
+    // 弹窗控制
+    // ============================================================
+    function openModal() {
+        nameInput.value = '';
+        urlInput.value = '';
+        modal.classList.add('show');
+        setTimeout(() => nameInput.focus(), 100);
+    }
+
+    function closeModal() {
+        modal.classList.remove('show');
+    }
+
+    function handleSave() {
+        const name = nameInput.value.trim();
+        const url = urlInput.value.trim();
+        if (!name) {
+            nameInput.focus();
+            nameInput.style.boxShadow = '0 0 0 3px rgba(255,100,100,0.2)';
+            setTimeout(() => { nameInput.style.boxShadow = 'none'; }, 600);
+            return;
+        }
+        if (!url) {
+            urlInput.focus();
+            urlInput.style.boxShadow = '0 0 0 3px rgba(255,100,100,0.2)';
+            setTimeout(() => { urlInput.style.boxShadow = 'none'; }, 600);
+            return;
+        }
+        const success = addShortcut(name, url);
+        if (success) {
+            closeModal();
+        } else {
+            urlInput.focus();
+            urlInput.style.boxShadow = '0 0 0 3px rgba(255,100,100,0.2)';
+            setTimeout(() => { urlInput.style.boxShadow = 'none'; }, 600);
+        }
+    }
+
+    cancelBtn.addEventListener('click', closeModal);
+    saveBtn.addEventListener('click', handleSave);
+
+    urlInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            handleSave();
+        }
+    });
+    nameInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            urlInput.focus();
+        }
+    });
+
+    modal.addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+    });
+
+    // ============================================================
+    // 恢复搜索引擎
+    // ============================================================
     try {
         const saved = localStorage.getItem('preferredEngine');
         if (saved && ENGINES[saved]) {
@@ -304,8 +462,11 @@
         }
     } catch (_) {}
 
-    // ===== 初始化历史渲染 =====
+    // ============================================================
+    // 初始化
+    // ============================================================
     renderHistory();
+    renderShortcuts();
 
-    console.log('✦ 起始页已加载 · 历史记录修复完成 ✦');
+    console.log('✦ 极光起始页已加载 · v1.1.0 ✦');
 })();

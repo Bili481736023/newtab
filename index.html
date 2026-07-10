@@ -67,7 +67,6 @@
             animation: floatGlow3 22s ease-in-out infinite alternate;
         }
 
-        /* ========== 背景动画 ========== */
         @keyframes bgPulse {
             0% {
                 opacity: 0.8;
@@ -116,7 +115,7 @@
             }
         }
 
-        /* ========== 内容容器 ========== */
+        /* ========== 内容容器 - 紧凑垂直布局 ========== */
         .container {
             position: relative;
             z-index: 1;
@@ -126,26 +125,25 @@
             align-items: center;
             width: 100vw;
             height: 100vh;
-            padding: 0 24px;
+            padding: 0 24px 80px 24px;
         }
 
         .content-wrapper {
-            max-height: 40vh;
             width: 100%;
             max-width: 680px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            gap: clamp(14px, 2.5vh, 32px);
             animation: fadeUp 1.2s ease-out both;
             animation-delay: 0.2s;
+            margin-top: -20px;
         }
 
         /* ========== 时间 ========== */
         .time-section {
             text-align: center;
             width: 100%;
+            margin-bottom: 12px;
         }
 
         .time {
@@ -175,10 +173,11 @@
             border: 1px solid rgba(255, 255, 255, 0.04);
         }
 
-        /* ========== 搜索区域 (包含历史下拉) ========== */
+        /* ========== 搜索区域 ========== */
         .search-section {
             width: 100%;
             position: relative;
+            margin-bottom: 12px;
         }
 
         .search-box {
@@ -267,7 +266,7 @@
             opacity: 0.80;
         }
 
-        /* ===== 历史记录下拉列表 ===== */
+        /* ========== 历史下拉 ========== */
         .history-dropdown {
             position: absolute;
             top: calc(100% + 12px);
@@ -380,7 +379,136 @@
             color: rgba(255, 255, 255, 0.60);
         }
 
-        /* ========== Footer — 搜索引擎切换 ========== */
+        /* ========== 快捷链接 ========== */
+        .shortcuts-section {
+            width: 100%;
+            margin-bottom: 0;
+        }
+
+        .shortcuts-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            min-height: 48px;
+            padding: 2px 0;
+        }
+
+        .shortcut-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            padding: 6px 10px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            min-width: 52px;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 12px;
+            position: relative;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.20);
+        }
+
+        .shortcut-item:hover {
+            transform: translateY(-3px) scale(1.04);
+            background: rgba(255, 255, 255, 0.10);
+            box-shadow: 0 6px 24px rgba(102, 126, 234, 0.15);
+            color: #ffffff;
+        }
+
+        .shortcut-item .shortcut-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            object-fit: contain;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 3px;
+            flex-shrink: 0;
+        }
+
+        .shortcut-item .shortcut-name {
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            max-width: 56px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            line-height: 1.2;
+        }
+
+        .shortcut-item .shortcut-delete {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: rgba(255, 70, 70, 0.85);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: 10px;
+            line-height: 14px;
+            text-align: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            transform: scale(0.7);
+            pointer-events: none;
+            font-weight: 600;
+        }
+
+        .shortcut-item:hover .shortcut-delete {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        .shortcut-item .shortcut-delete:hover {
+            background: rgba(255, 50, 50, 1);
+            transform: scale(1.15);
+        }
+
+        .shortcuts-add-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1px;
+            padding: 6px 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1.5px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            min-width: 52px;
+            color: rgba(255, 255, 255, 0.30);
+            font-size: 10px;
+        }
+
+        .shortcuts-add-btn:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.30);
+            color: rgba(255, 255, 255, 0.60);
+            transform: scale(1.02);
+        }
+
+        .shortcuts-add-btn .add-icon {
+            font-size: 20px;
+            line-height: 1;
+            font-weight: 300;
+        }
+
+        /* ========== 页脚 - 搜索引擎选择（固定在底部） ========== */
         .footer {
             position: fixed;
             bottom: 28px;
@@ -388,10 +516,6 @@
             right: 0;
             z-index: 1;
             text-align: center;
-            font-size: 14px;
-            font-weight: 300;
-            color: rgba(255, 255, 255, 0.25);
-            letter-spacing: 0.12em;
             animation: fadeUp 1.2s ease-out both;
             animation-delay: 1.0s;
         }
@@ -406,18 +530,25 @@
             backdrop-filter: blur(4px);
             transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
             user-select: none;
+            font-size: 14px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.25);
+            letter-spacing: 0.12em;
         }
+
         .footer-trigger:hover {
             background: rgba(255, 255, 255, 0.08);
             border-color: rgba(255, 255, 255, 0.12);
             color: rgba(255, 255, 255, 0.55);
         }
+
         .footer-trigger .icon-arrow {
             display: inline-block;
             margin-left: 6px;
             font-size: 10px;
             transition: transform 0.3s ease;
         }
+
         .footer-trigger.active .icon-arrow {
             transform: rotate(180deg);
         }
@@ -441,6 +572,7 @@
             transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.22, 0.68, 0, 1.0);
             z-index: 10;
         }
+
         .engine-popup.show {
             opacity: 1;
             pointer-events: auto;
@@ -464,13 +596,12 @@
             text-align: left;
             font-family: inherit;
         }
+
         .engine-item:hover {
             background: rgba(255, 255, 255, 0.06);
             color: #ffffff;
         }
-        .engine-item:active {
-            background: rgba(255, 255, 255, 0.02);
-        }
+
         .engine-item .check {
             margin-left: auto;
             opacity: 0;
@@ -478,9 +609,11 @@
             font-size: 14px;
             color: #8a9cf0;
         }
+
         .engine-item.active .check {
             opacity: 1;
         }
+
         .engine-item .logo {
             font-size: 18px;
             line-height: 1;
@@ -496,9 +629,164 @@
             pointer-events: none;
             transition: background 0.3s ease;
         }
+
         .popup-overlay.show {
             pointer-events: auto;
             background: rgba(0, 0, 0, 0.15);
+        }
+
+        /* ========== 弹窗 ========== */
+        .shortcut-modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: rgba(0, 0, 0, 0.50);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .shortcut-modal-overlay.show {
+            display: flex;
+        }
+
+        .shortcut-modal {
+            background: rgba(24, 24, 48, 0.92);
+            backdrop-filter: blur(28px) saturate(1.6);
+            -webkit-backdrop-filter: blur(28px) saturate(1.6);
+            border-radius: 24px;
+            padding: 28px 24px 24px;
+            width: 90%;
+            max-width: 400px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 32px 80px rgba(0, 0, 0, 0.70);
+            animation: scaleIn 0.3s cubic-bezier(0.22, 0.68, 0, 1.0);
+        }
+
+        .shortcut-modal h3 {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 2px;
+            letter-spacing: 0.04em;
+            color: #ffffff;
+        }
+
+        .shortcut-modal .modal-sub {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.35);
+            margin-bottom: 18px;
+            font-weight: 300;
+        }
+
+        .shortcut-modal label {
+            display: block;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.50);
+            margin-bottom: 4px;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+        }
+
+        .shortcut-modal input {
+            width: 100%;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            font-family: inherit;
+        }
+
+        .shortcut-modal input:focus {
+            border-color: rgba(102, 126, 234, 0.50);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.08);
+        }
+
+        .shortcut-modal input::placeholder {
+            color: rgba(255, 255, 255, 0.20);
+        }
+
+        .shortcut-modal .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 4px;
+        }
+
+        .shortcut-modal .modal-actions button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: inherit;
+            letter-spacing: 0.04em;
+        }
+
+        .shortcut-modal .btn-cancel {
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.50);
+        }
+
+        .shortcut-modal .btn-cancel:hover {
+            background: rgba(255, 255, 255, 0.10);
+            color: #ffffff;
+        }
+
+        .shortcut-modal .btn-save {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #ffffff;
+            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.25);
+        }
+
+        .shortcut-modal .btn-save:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 28px rgba(102, 126, 234, 0.35);
+        }
+
+        .shortcut-modal .btn-save:active {
+            transform: scale(0.97);
+        }
+
+        /* ========== 动画 ========== */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.92) translateY(16px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* ========== 响应式 ========== */
@@ -535,8 +823,14 @@
                 width: 60vw;
                 height: 60vw;
             }
-            .content-wrapper {
-                gap: clamp(12px, 2vh, 20px);
+            .time-section {
+                margin-bottom: 8px;
+            }
+            .search-section {
+                margin-bottom: 8px;
+            }
+            .container {
+                padding: 0 16px 70px 16px;
             }
             .engine-popup {
                 min-width: 170px;
@@ -546,16 +840,38 @@
                 padding: 10px 20px;
                 font-size: 14px;
             }
-            .footer {
-                font-size: 13px;
-                bottom: 22px;
-            }
             .history-dropdown {
                 max-height: 180px;
             }
             .history-item {
                 padding: 8px 16px;
                 font-size: 14px;
+            }
+            .shortcut-item {
+                padding: 5px 8px;
+                min-width: 44px;
+            }
+            .shortcut-item .shortcut-icon {
+                width: 26px;
+                height: 26px;
+            }
+            .shortcut-item .shortcut-name {
+                font-size: 9px;
+                max-width: 44px;
+            }
+            .shortcuts-add-btn {
+                padding: 5px 8px;
+                min-width: 44px;
+            }
+            .shortcuts-add-btn .add-icon {
+                font-size: 18px;
+            }
+            .footer-trigger {
+                font-size: 13px;
+                padding: 4px 14px;
+            }
+            .footer {
+                bottom: 22px;
             }
         }
 
@@ -578,8 +894,14 @@
             .time {
                 font-size: 42px;
             }
-            .content-wrapper {
-                gap: 12px;
+            .time-section {
+                margin-bottom: 6px;
+            }
+            .search-section {
+                margin-bottom: 6px;
+            }
+            .container {
+                padding: 0 12px 60px 12px;
             }
             .engine-popup {
                 min-width: 150px;
@@ -596,22 +918,39 @@
                 padding: 6px 14px;
                 font-size: 13px;
             }
+            .shortcuts-grid {
+                gap: 6px;
+            }
+            .shortcut-item {
+                padding: 4px 6px;
+                min-width: 38px;
+            }
+            .shortcut-item .shortcut-icon {
+                width: 22px;
+                height: 22px;
+            }
+            .shortcut-item .shortcut-name {
+                font-size: 8px;
+                max-width: 34px;
+            }
+            .shortcuts-add-btn {
+                padding: 4px 6px;
+                min-width: 38px;
+            }
+            .shortcuts-add-btn .add-icon {
+                font-size: 16px;
+            }
+            .footer-trigger {
+                font-size: 12px;
+                padding: 4px 12px;
+            }
+            .footer {
+                bottom: 18px;
+            }
         }
 
         ::-webkit-scrollbar {
             display: none;
-        }
-
-        /* ========== 入场动画 ========== */
-        @keyframes fadeUp {
-            0% {
-                opacity: 0;
-                transform: translateY(16px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
     </style>
 </head>
@@ -634,7 +973,7 @@
                 <div class="date" id="date">----年--月--日 星期-</div>
             </div>
 
-            <!-- 搜索 (含历史下拉) -->
+            <!-- 搜索 -->
             <div class="search-section">
                 <form id="searchForm" action="https://www.bing.com/search" method="get" target="_blank" autocomplete="off">
                     <div class="search-box">
@@ -656,8 +995,12 @@
                     </div>
                 </form>
 
-                <!-- 历史记录下拉 -->
-                <div class="history-dropdown" id="historyDropdown">
+                <div class="history-dropdown" id="historyDropdown"></div>
+            </div>
+
+            <!-- 快捷链接 -->
+            <div class="shortcuts-section">
+                <div class="shortcuts-grid" id="shortcutsGrid">
                     <!-- 由 JS 动态渲染 -->
                 </div>
             </div>
@@ -665,7 +1008,7 @@
 
     </div>
 
-    <!-- ===== Footer ===== -->
+    <!-- ===== 页脚 - 搜索引擎选择 ===== -->
     <div class="footer">
         <span class="footer-trigger" id="engineTrigger">
             <span id="currentEngineLabel">✦ &nbsp;Bing</span>
@@ -688,9 +1031,28 @@
             <span class="logo">🌍</span> Yandex
             <span class="check">✓</span>
         </button>
+        <button class="engine-item" data-engine="google" data-url="https://www.google.com/search" data-placeholder="在 Google 中搜索…">
+            <span class="logo">🔴</span> Google
+            <span class="check">✓</span>
+        </button>
     </div>
 
-    <!-- ===== 引用外部 JavaScript ===== -->
+    <!-- ===== 添加链接弹窗 ===== -->
+    <div class="shortcut-modal-overlay" id="shortcutModal">
+        <div class="shortcut-modal">
+            <h3>➕ 添加快捷链接</h3>
+            <div class="modal-sub">输入名称和网址，保存后立刻出现在下方</div>
+            <label>网站名称</label>
+            <input type="text" id="shortcutNameInput" placeholder="例如：B站" maxlength="20" />
+            <label>网址</label>
+            <input type="url" id="shortcutUrlInput" placeholder="https://bilibili.com" />
+            <div class="modal-actions">
+                <button class="btn-cancel" id="shortcutCancelBtn">取消</button>
+                <button class="btn-save" id="shortcutSaveBtn">保存</button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 
 </body>
